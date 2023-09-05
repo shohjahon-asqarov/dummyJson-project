@@ -19,7 +19,10 @@ const Products = () => {
         <div className='container pt-10'>
             <div className="flex justify-between items-center py-10">
                 <h1 className='text-3xl font-bold'>Products</h1>
-                <Pagination defaultCurrent={1} total={20} />
+                <div>
+                    <Pagination defaultCurrent={1} total={20} />
+                    <button><i className='bi bi-cart2'></i></button>
+                </div>
             </div>
 
             <ul className="grid grid-cols-4 gap-5">
