@@ -6,22 +6,29 @@ const Products = () => {
 
     const [products, setProducts] = useState([])
 
+    const [current, setCurrent] = useState(1);
+
+    const onChange = (page) => {
+        setCurrent(page);
+    };
+
     const getData = async () => {
-        const response = await axios.get('https://dummyjson.com/products?limit=20')
+        const response = await axios.get(`https://dummyjson.com/products?limit=20&skip=${current !== 1 ? current * 20 : 0}`)
         setProducts(response.data.products)
+        console.log(products);
     }
 
     useEffect(() => {
         getData()
-    }, [])
+    }, [current])
 
     return (
         <div className='container pt-10'>
             <div className="flex justify-between items-center py-10">
                 <h1 className='text-3xl font-bold'>Products</h1>
-                <div>
-                    <Pagination defaultCurrent={1} total={20} />
-                    <button><i className='bi bi-cart2'></i></button>
+                <div className='flex space-x-5 items-center'>
+                    <Pagination current={current} onChange={onChange} total={40} />
+                    <button className='bg-gray-300 py-2 px-3 rounded-md'><i className='bi bi-cart2'></i></button>
                 </div>
             </div>
 
