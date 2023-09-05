@@ -1,8 +1,13 @@
 import { Pagination } from 'antd'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addCart } from '../store/slices/cartSlice'
 
 const Products = () => {
+
+    const dispatch = useDispatch()
+    const orders = useSelector((state) => state.cart.data)
 
     const [products, setProducts] = useState([])
 
@@ -44,7 +49,7 @@ const Products = () => {
                                 </div>
                                 <div className='card-footer flex justify-between items-center'>
                                     <span className='text-2xl font-bold'>{product.price}$</span>
-                                    <button className='bg-yellow rounded-lg text-white font-bold text-sm py-2 px-5 active:scale-95'>Add Card</button>
+                                    <button onClick={()=>dispatch(addCart(product))} className='bg-yellow rounded-lg text-white font-bold text-sm py-2 px-5 active:scale-95'>Add Card</button>
                                 </div>
                             </li>
                         )
