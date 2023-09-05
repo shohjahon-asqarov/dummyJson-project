@@ -1,4 +1,4 @@
-import { Pagination, Skeleton } from 'antd'
+import { Badge, Pagination, Skeleton } from 'antd'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,7 +24,9 @@ const Products = () => {
         setLoading(true)
         const response = await axios.get(`https://dummyjson.com/products?limit=20&skip=${current !== 1 ? current * 20 : 0}`)
         setProducts(response.data.products)
-        setLoading(false)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1500);
     }
 
     useEffect(() => {
@@ -32,16 +34,20 @@ const Products = () => {
     }, [current])
 
     return (
-        <div className='container pt-10'>
-            <div className="flex justify-between items-center py-10">
-                <h1 className='text-3xl font-bold'>Products</h1>
-                <div className='flex space-x-5 items-center'>
-                    <Pagination current={current} onChange={onChange} total={40} />
-                    <button className='bg-gray-300 py-2 px-3 rounded-md'><i className='bi bi-cart2'></i></button>
+        <div className='pb-20'>
+            <div className="sticky top-0 border-b shadow-sm bg-white">
+                <div className="container flex justify-between items-center py-6 ">
+                    <h1 className='text-3xl font-bold'>Products</h1>
+                    <div className='flex space-x-5 items-center'>
+                        <Pagination current={current} onChange={onChange} total={40} />
+                        <Badge count={orders.length}>
+                            <button className='bg-gray-300 py-2 px-3 rounded-md'><i className='bi bi-cart2'></i></button>
+                        </Badge>
+                    </div>
                 </div>
             </div>
 
-            <ul className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
+            <ul className="container grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 pt-10">
                 {
                     !loading
                         ?
