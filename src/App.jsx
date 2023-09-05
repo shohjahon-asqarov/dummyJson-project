@@ -1,10 +1,11 @@
 import React from 'react'
+import Products from './components/Products'
 
 const App = () => {
 
   return (
-    <div className='container'>
-      <h1 className='text-2xl'>App</h1>
+    <div>
+      <Products />
     </div>
   )
 }
