@@ -1,3 +1,4 @@
+import { Pagination } from 'antd'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
@@ -18,7 +19,7 @@ const Products = () => {
         <div className='container pt-10'>
             <div className="flex justify-between items-center py-10">
                 <h1 className='text-3xl font-bold'>Products</h1>
-                <span className='font-bold text-lg'>{products.length}</span>
+                <Pagination defaultCurrent={1} total={20} />
             </div>
 
             <ul className="grid grid-cols-4 gap-5">
