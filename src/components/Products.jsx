@@ -1,4 +1,4 @@
-import { Pagination } from 'antd'
+import { Pagination, Skeleton } from 'antd'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,18 +9,22 @@ const Products = () => {
     const dispatch = useDispatch()
     const orders = useSelector((state) => state.cart.data)
 
+    const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([])
 
     const [current, setCurrent] = useState(1);
+
+    const emptyArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
     const onChange = (page) => {
         setCurrent(page);
     };
 
     const getData = async () => {
+        setLoading(true)
         const response = await axios.get(`https://dummyjson.com/products?limit=20&skip=${current !== 1 ? current * 20 : 0}`)
         setProducts(response.data.products)
-        console.log(products);
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -37,23 +41,41 @@ const Products = () => {
                 </div>
             </div>
 
-            <ul className="grid grid-cols-4 gap-5">
+            <ul className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
                 {
-                    products.map(product => {
-                        return (
-                            <li className='flex flex-col hover:shadow-lg p-4 rounded-lg cursor-pointer border border-gray' key={product.id}>
-                                <img className='h-52 mx-auto rounded-md overflow-hidden' src={product.thumbnail} alt={product.title} />
-                                <div className='space-y-3 mb-3 flex-grow py-3'>
-                                    <h3 className='text-xl font-extrabold text-c-title'>{product.title.slice(0, 22)}</h3>
-                                    <p className='text-c-desc text-sm font-medium'>{product.description.slice(0, 30)}...</p>
-                                </div>
-                                <div className='card-footer flex justify-between items-center'>
-                                    <span className='text-2xl font-bold'>{product.price}$</span>
-                                    <button onClick={()=>dispatch(addCart(product))} className='bg-yellow rounded-lg text-white font-bold text-sm py-2 px-5 active:scale-95'>Add Card</button>
-                                </div>
-                            </li>
-                        )
-                    })
+                    !loading
+                        ?
+                        products.map(product => {
+                            return (
+                                <li className='flex flex-col hover:shadow-lg p-4 rounded-lg cursor-pointer border border-gray' key={product.id}>
+                                    <img className='h-52 mx-auto rounded-md overflow-hidden' src={product.thumbnail} alt={product.title} />
+                                    <div className='space-y-3 mb-3 flex-grow py-3'>
+                                        <h3 className='text-xl font-extrabold text-c-title'>{product.title.slice(0, 22)}</h3>
+                                        <p className='text-c-desc text-sm font-medium'>{product.description.slice(0, 30)}...</p>
+                                    </div>
+                                    <div className='card-footer flex justify-between items-center'>
+                                        <span className='text-2xl font-bold'>{product.price}$</span>
+                                        <button onClick={() => dispatch(addCart(product))} className='bg-yellow rounded-lg text-white font-bold text-sm py-2 px-5 active:scale-95'>Add Card</button>
+                                    </div>
+                                </li>
+                            )
+                        })
+                        :
+                        emptyArr.map((i) => {
+                            return (
+                                <li key={i} className='flex flex-col hover:shadow-lg p-4 rounded-lg cursor-pointer border border-gray'>
+                                    <Skeleton.Image active className='!h-52 !w-full mx-auto rounded-md overflow-hidden' />
+                                    <div className='space-y-3 mb-3 flex-grow py-3'>
+                                        <Skeleton.Input block active />
+                                        <Skeleton.Input className='!h-5' block active />
+                                    </div>
+                                    <div className='card-footer flex justify-between items-center'>
+                                        <Skeleton.Button active />
+                                        <Skeleton.Button className='!w-24' active />
+                                    </div>
+                                </li>
+                            )
+                        })
                 }
             </ul>
         </div>
