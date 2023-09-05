@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCart } from '../store/slices/cartSlice'
+import { NavLink } from 'react-router-dom'
 
 const Products = () => {
 
@@ -40,9 +41,11 @@ const Products = () => {
                     <h1 className='text-3xl font-bold'>Products</h1>
                     <div className='flex space-x-5 items-center'>
                         <Pagination current={current} onChange={onChange} total={40} />
-                        <Badge count={orders.length}>
-                            <button className='bg-gray-300 py-2 px-3 rounded-md'><i className='bi bi-cart2'></i></button>
-                        </Badge>
+                        <NavLink to='/cart'>
+                            <Badge count={orders.length}>
+                                <button className='bg-gray-300 py-2 px-3 rounded-md'><i className='bi bi-cart2'></i></button>
+                            </Badge>
+                        </NavLink>
                     </div>
                 </div>
             </div>
