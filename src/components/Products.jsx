@@ -29,7 +29,7 @@ const Products = () => {
     return (
         <div className='pb-20'>
             <div className="sticky top-0 border-b shadow-sm bg-white">
-                <div className="container flex justify-between items-center py-6 ">
+                <div className="container flex flex-col space-y-6 sm:flex-row justify-between items-center py-6 ">
                     <h1 className='text-3xl font-bold'>Products</h1>
                     <div className='flex space-x-5 items-center'>
                         <Pagination current={current} onChange={onChange} total={40} />
