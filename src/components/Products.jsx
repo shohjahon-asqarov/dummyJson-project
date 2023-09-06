@@ -6,21 +6,15 @@ import { addCart } from '../store/slices/cartSlice'
 import { NavLink } from 'react-router-dom'
 
 const Products = () => {
-
     const dispatch = useDispatch()
     const orders = useSelector((state) => state.cart.data)
-
     const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([])
-
     const [current, setCurrent] = useState(1);
-
     const emptyArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-
     const onChange = (page) => {
         setCurrent(page);
     };
-
     const getData = async () => {
         setLoading(true)
         const response = await axios.get(`https://dummyjson.com/products?limit=20&skip=${current !== 1 ? current * 20 : 0}`)
@@ -29,20 +23,14 @@ const Products = () => {
             setLoading(false)
         }, 1500);
     }
-
-  
-
     useEffect(() => {
         getData()
     }, [current])
-
     return (
         <div className='pb-20'>
             <div className="sticky top-0 border-b shadow-sm bg-white">
                 <div className="container flex justify-between items-center py-6 ">
                     <h1 className='text-3xl font-bold'>Products</h1>
-
-
                     <div className='flex space-x-5 items-center'>
                         <Pagination current={current} onChange={onChange} total={40} />
                         <NavLink to='/cart'>
@@ -53,7 +41,6 @@ const Products = () => {
                     </div>
                 </div>
             </div>
-
 
             <ul className="container grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 pt-10">
                 {

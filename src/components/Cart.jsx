@@ -5,10 +5,8 @@ import { NavLink } from 'react-router-dom'
 import { deleteCart } from '../store/slices/cartSlice'
 
 const Cart = () => {
-
     const dispatch = useDispatch()
     const orders = useSelector((state) => state.cart.data)
-
     return (
         <div className='pb-20'>
             <div className="sticky top-0 border-b shadow-sm bg-white">
