@@ -1,4 +1,4 @@
-import { Badge, Pagination, Skeleton } from 'antd'
+import { Badge, Pagination, Segmented, Skeleton } from 'antd'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,6 +30,8 @@ const Products = () => {
         }, 1500);
     }
 
+  
+
     useEffect(() => {
         getData()
     }, [current])
@@ -39,6 +41,8 @@ const Products = () => {
             <div className="sticky top-0 border-b shadow-sm bg-white">
                 <div className="container flex justify-between items-center py-6 ">
                     <h1 className='text-3xl font-bold'>Products</h1>
+
+
                     <div className='flex space-x-5 items-center'>
                         <Pagination current={current} onChange={onChange} total={40} />
                         <NavLink to='/cart'>
@@ -49,6 +53,7 @@ const Products = () => {
                     </div>
                 </div>
             </div>
+
 
             <ul className="container grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 pt-10">
                 {
